@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QTextEdit>
 #include <QDockWidget>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -50,8 +51,38 @@ MainWindow::MainWindow(QWidget *parent) :
 //        dock->setWidget(title3);
 //        this->addDockWidget(Qt::BottomDockWidgetArea,dock);
         //ui->tabWidget->addTab();
-      //  ui->tabWidget->setCurrentIndex(1);
+        ui->tabWidget->setCurrentIndex(1);
     }
+
+    //4.mdiArea使用
+    {//====================================
+        QTextEdit *windows1 = new QTextEdit;
+        windows1->setHtml("C");
+        ui->mdiArea->addSubWindow(windows1);
+
+        QTextEdit *windows2 = new QTextEdit;
+        windows2->setHtml("C++");
+        ui->mdiArea->addSubWindow(windows2);
+
+        QTextEdit *windows3 = new QTextEdit;
+        windows3->setHtml("Java");
+        ui->mdiArea->addSubWindow(windows3);
+
+        QTextEdit *newWindows = new QTextEdit;
+        newWindows->setHtml("New Windows!");
+        ui->mdiArea->addSubWindow(newWindows);
+
+        QLabel *a = new QLabel;
+        a->setText("hello world");
+        ui->mdiArea->addSubWindow(a);
+
+
+        ui->mdiArea->cascadeSubWindows();
+        ui->tabWidget->setCurrentIndex(2);
+    }//===================================
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -81,4 +112,43 @@ void MainWindow::on_pushButton_3_clicked()//1.stackedWidget
     ui->stackedWidget->setCurrentIndex(n);
 
 
+}
+
+
+
+//void MainWindow::on_btnAdd_clicked()
+//{
+//    QTextEdit *newWindows = new QTextEdit;
+//    newWindows->setHtml("New Windows!");
+//    ui->mdiArea->addSubWindow(newWindows);
+//}
+
+
+
+void MainWindow::on_pushButton_4_clicked()//打开上一个窗口 4.mdiArea使用
+{
+    ui->mdiArea->activatePreviousSubWindow();
+}
+
+void MainWindow::on_pushButton_5_clicked()//打开下一个窗口 4.mdiArea使用
+{
+    ui->mdiArea->activateNextSubWindow();
+}
+
+void MainWindow::on_pushButton_6_clicked()//关闭当前窗口 4.mdiArea使用
+{
+    ui->mdiArea->closeActiveSubWindow();
+
+}
+
+void MainWindow::on_pushButton_7_clicked()//关闭所有窗口 4.mdiArea使用
+{
+     ui->mdiArea->closeAllSubWindows();
+}
+
+void MainWindow::on_pushButton_8_clicked()//该功能有待发现，新建一个窗口 4.mdiArea使用
+{
+//    QTextEdit *windows9 = new QTextEdit;
+//    windows9->setHtml("C++++++++++11111111");
+//    ui->mdiArea->addSubWindow(windows9);//主要问题可能是要重新刷新一下窗口，才会显示。
 }
